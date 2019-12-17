@@ -1,0 +1,186 @@
+﻿<Window x:Class="Interface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1400">
+    <Grid>
+        <Grid x:Name="window1" Visibility="Visible" IsEnabled="True" Margin="5" Grid.ColumnSpan="2"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition  Height="5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="0" >
+                <Canvas Width="7301" Height="646" Background="AliceBlue">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="250" Text="PREPARE TO THE BATTLE" Height="646" Width="7301"/>
+
+                </Canvas>
+            </Viewbox>
+            <Viewbox  x:Name="gd" Grid.Row="1" >
+                <Canvas  Width="1369" Height="614" Background="NavajoWhite">
+                    <Image Name="image" Source="D:\My Heap\Project Heroes\Interface\Interface\armyspot.bmp" Canvas.Bottom="0" Canvas.Right="500" Height="230" Canvas.Left="432" Canvas.Top="0" Width="565"/>
+                    <ComboBox Name="ComboBoxPickingUnit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101" Height="27" RenderTransformOrigin="0.5,0.5" Canvas.Left="19" Canvas.Top="42" >
+
+                    </ComboBox>
+                    <TextBox Name="qt" Grid.Column="0" MaxLength="6" Canvas.Left="265" Canvas.Top="42" Width="54" Height="27"/>
+                    <TextBox Name="spot" Grid.Column="0" MaxLength="1" Canvas.Left="206" Canvas.Top="41" Width="54" Height="27"/>
+                    <Button x:Name="buttonAddUnit" Grid.Column="0" Content="Add Unit to Army" HorizontalAlignment="Left" Height="27"  VerticalAlignment="Top" Width="103"  Click="Button_Click" Canvas.Left="324" Canvas.Top="42"/>
+                    <TextBlock HorizontalAlignment="Right" Grid.Column="1" Foreground="Goldenrod" TextAlignment="Center" TextWrapping="Wrap" FontStyle="Italic" FontFamily="Verdana"  FontSize="30" Width="536" Height="36" VerticalAlignment="Top" Canvas.Left="461" Canvas.Top="47"><Run Text="Player 1"/><LineBreak/><Run/></TextBlock>
+
+                    <ComboBox x:Name="Armyselect" Canvas.Left="125" Canvas.Top="41" Width="76" Height="27">
+                        <ComboBoxItem  IsSelected="True">
+                            <TextBlock>Player1</TextBlock>
+                        </ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">
+                            <TextBlock>Player2</TextBlock>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Name="Armyspot1" Grid.Column="1" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="522" Canvas.Top="107"/>
+                    <TextBlock Name="qtspot1" Grid.Column="1" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="522" Canvas.Top="146"/>
+                    <TextBlock x:Name="Armyspot2" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="587" Canvas.Top="107"/>
+                    <TextBlock x:Name="qtspot2" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold"  FontSize="15" Canvas.Left="587" Canvas.Top="146"/>
+                    <TextBlock x:Name="Armyspot3" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="652" Canvas.Top="107"/>
+                    <TextBlock x:Name="qtspot3" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold"  FontSize="15" Canvas.Left="655" Canvas.Top="146"/>
+                    <TextBlock x:Name="Armyspot4" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold" FontSize="30" Canvas.Left="720" Canvas.Top="107"/>
+                    <TextBlock x:Name="qtspot4" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="720" Canvas.Top="146"/>
+                    <TextBlock x:Name="Armyspot5" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="787" Canvas.Top="107"/>
+                    <TextBlock x:Name="qtspot5" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="787" Canvas.Top="146"/>
+                    <TextBlock x:Name="Armyspot6" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold" FontSize="30" Grid.Column="1" Canvas.Left="852" Canvas.Top="107"/>
+                    <TextBlock x:Name="qtspot6" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="855" Canvas.Top="146"/>
+                    <TextBlock x:Name="StatusofPicking" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="130" Width="327" Canvas.Left="19" Canvas.Top="104"/>
+                    <TextBlock  HorizontalAlignment="Left" TextAlignment="Center" Height="23" TextWrapping="Wrap" Text="Quantity" VerticalAlignment="Top" Width="54" Canvas.Left="265" Canvas.Top="14"/>
+                    <TextBlock  HorizontalAlignment="Left" TextAlignment="Center" Height="23" TextWrapping="Wrap" Text="Spot" VerticalAlignment="Top" Width="54" Canvas.Left="206" Canvas.Top="13"/>
+                    <TextBlock  HorizontalAlignment="Left" TextAlignment="Center" TextWrapping="Wrap" Text="Choose Unit" VerticalAlignment="Top" Height="23" Width="101" Canvas.Left="19" Canvas.Top="14"/>
+
+                    <Button  Click="finishPicking" Content="Finish" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Height="27" Canvas.Left="324" Canvas.Top="74"/>
+                    <Button  Click="End" Content="End Program" HorizontalAlignment="Left" Width="88" Canvas.Left="1271" Canvas.Top="558" Height="46"/>
+                    <TextBlock  HorizontalAlignment="Left" TextAlignment="Center" Height="23" TextWrapping="Wrap" Text="Army" VerticalAlignment="Top" Width="76" Canvas.Left="125" Canvas.Top="13"/>
+                    <Image Source="D:\My Heap\Project Heroes\Interface\Interface\armyspot.bmp" Canvas.Bottom="0" Canvas.Right="500" Height="230" Canvas.Left="429" Canvas.Top="257" Width="565"/>
+                    <TextBlock HorizontalAlignment="Right" Foreground="Goldenrod" TextAlignment="Center" TextWrapping="Wrap" FontStyle="Italic" FontFamily="Verdana"  FontSize="30" Width="536" Height="36" VerticalAlignment="Top" Canvas.Left="458" Canvas.Top="304"><Run Text="Player2"/><LineBreak/><Run/></TextBlock>
+                    <TextBlock x:Name="Armyspot21" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="519" Canvas.Top="364"/>
+                    <TextBlock x:Name="qtspot21" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="519" Canvas.Top="403"/>
+                    <TextBlock x:Name="Armyspot22" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="584" Canvas.Top="364"/>
+                    <TextBlock x:Name="qtspot22" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold"  FontSize="15" Canvas.Left="584" Canvas.Top="403"/>
+                    <TextBlock x:Name="Armyspot23" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="649" Canvas.Top="364"/>
+                    <TextBlock x:Name="qtspot23" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold"  FontSize="15" Canvas.Left="652" Canvas.Top="403"/>
+                    <TextBlock x:Name="Armyspot24" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold" FontSize="30" Canvas.Left="717" Canvas.Top="364"/>
+                    <TextBlock x:Name="qtspot24" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="717" Canvas.Top="403"/>
+                    <TextBlock x:Name="Armyspot25" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold"  FontSize="30" Canvas.Left="784" Canvas.Top="364"/>
+                    <TextBlock x:Name="qtspot25" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="784" Canvas.Top="403"/>
+                    <TextBlock x:Name="Armyspot26" TextAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="43" Width="43" FontFamily="Verdana" Foreground="Gold" FontSize="30" Canvas.Left="849" Canvas.Top="364"/>
+                    <TextBlock x:Name="qtspot26" TextAlignment="Left" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="60" FontFamily="Verdana" Foreground="Gold" FontSize="15" Canvas.Left="852" Canvas.Top="403"/>
+
+                </Canvas>
+            </Viewbox>
+        </Grid>
+
+        <Grid x:Name="windowbattle"  >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140*"></ColumnDefinition>
+                <ColumnDefinition Width="140*"></ColumnDefinition>
+                <ColumnDefinition Width="140*"></ColumnDefinition>
+                <ColumnDefinition Width="141*"></ColumnDefinition>
+                <ColumnDefinition Width="140*"></ColumnDefinition>
+                <ColumnDefinition Width="141*"></ColumnDefinition>
+                <ColumnDefinition Width="140*"></ColumnDefinition>
+                <ColumnDefinition Width="141*"></ColumnDefinition>
+                <ColumnDefinition Width="281*"></ColumnDefinition>
+                <ColumnDefinition Width="0*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Source="D:\My Heap\Project Heroes\Interface\Interface\field.jpg" Grid.ColumnSpan="8" Grid.RowSpan="8"></Image>
+
+            <TextBlock x:Name="T11"  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock x:Name="T12" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock x:Name="T13" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock x:Name="T14" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="141"/>
+            <TextBlock x:Name="T15" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock  x:Name="T16" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock x:Name="T17" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock x:Name="T18" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="130" Grid.ColumnSpan="2" Margin="138.601,0,0,0"/>
+            <TextBlock x:Name="T21" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock x:Name="T22" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock x:Name="T23" MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="135"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="88" Width="133" Margin="6,10,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="130" Grid.ColumnSpan="2" Margin="138.601,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="141" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="134" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="3" Margin="138.601,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="3" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="130" Grid.ColumnSpan="2" Margin="138.601,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="134" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="4" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="130" Grid.ColumnSpan="2" Margin="138.601,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="140"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="88" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="141" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="88" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="88" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="139" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="5" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="140" Grid.ColumnSpan="3" Margin="138.601,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="98" Width="140"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="88" Width="134"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="91"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="139" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="6" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="93" Width="140" Grid.ColumnSpan="3" Margin="138.601,0,0,0"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="135"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="87" Width="139"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="135"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="87" Width="140" Grid.ColumnSpan="2"/>
+            <TextBlock  MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="139"/>
+            <TextBlock MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="5" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="139" Grid.ColumnSpan="2" Margin="139,0,0,0"/>
+            <TextBlock MouseRightButtonDown="move" MouseLeftButtonDown="selectposition" FontFamily="Verdana" FontSize="60" TextAlignment="Center" Grid.Row="7" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="86" Width="130" Grid.ColumnSpan="2" Margin="138.601,0,0,0"/>
+            <ListBox SelectionChanged="chooseposition" SelectionMode="Single" Name="ListboxPlayer1" Grid.Column="8" HorizontalAlignment="Left" Height="186" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Grid.RowSpan="2">
+
+            </ListBox>
+            <ListBox SelectionChanged="chooseposition" SelectionMode="Single"  x:Name="ListboxPlayer2" Grid.Column="8" HorizontalAlignment="Left" Height="186" Margin="143,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Grid.RowSpan="2">
+
+            </ListBox>
+
+            <Button Click="defeatButton" Content="Defeat" Grid.Column="8" HorizontalAlignment="Left" Margin="183.399,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="60" Height="34" />
+            <Button Click="waitButton" Content="Wait" Grid.Column="8" HorizontalAlignment="Left" Height="34" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="60"/>
+            <Button Click="defendButton" Content="Defend" Grid.Column="8" HorizontalAlignment="Left" Margin="95.399,10,0,0" Grid.Row="5" VerticalAlignment="Top" Width="60" Height="34"/>
+            <TextBlock x:Name="round" FontSize="50" Grid.Column="8" HorizontalAlignment="Left" Height="66" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="219"/>
+            <TextBlock x:Name="battleStatus" TextWrapping="Wrap" Text="" Grid.Column="8" Margin="10,10,10,11" Grid.Row="6" Grid.RowSpan="2"/>
+            <ListBox SelectionChanged="chooseabil" SelectionMode="Single" x:Name="abilities" Grid.Column="8" HorizontalAlignment="Left" Height="100" Margin="10.399,3,0,0" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Top" Width="233"/>
+
+
+        </Grid>
+    </Grid>
+</Window>
