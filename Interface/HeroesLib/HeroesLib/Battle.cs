@@ -25,11 +25,11 @@ namespace HeroesLib
                 whichTern = 0;
                 player[0] = new BattleArmy(player1_);
                 player[1] = new BattleArmy(player2_);
-                ini();
+                Ini();
             }
 
 
-            private void ini()
+            private void Ini()
             {
                 attem.Clear();
                 for (int i = 0; i < player[0].army.Count; i++)
@@ -76,7 +76,7 @@ namespace HeroesLib
             }
 
     */
-            public BattleUnitStack whowillgo()
+            public BattleUnitStack Whowillgo()
             {
                 for (int i = 0; i < attem.Count; i++)
                     if (attem[i].canBeUse == true)
@@ -86,9 +86,9 @@ namespace HeroesLib
                 return null;
             }
 
-            public void queue()
+            public void Queue()
             {
-                ini();
+                Ini();
                 for (int i = 0; i < player[0].army.Count + player[1].army.Count; i++)
                 {
                     for (int j = 0; j < player[0].army.Count + player[1].army.Count; j++)
@@ -120,7 +120,7 @@ namespace HeroesLib
                 }
             }
 
-            public string attack(BattleUnitStack att, BattleUnitStack def)
+            public string Attack(BattleUnitStack att, BattleUnitStack def)
             {
                 if (att.bus.Defence != att.bus.StandardDefence)
                 {
@@ -144,8 +144,8 @@ namespace HeroesLib
                     }
                     int totaldamage = rnd.Next((int)totald1, (int)totald2);
                     int beat = def.bus.Hitpoints + (def.bus.StandardHitpoints * def.bus.qty);
-
-                    if (beat - totaldamage <= 0)
+                att.canBeUse = false;
+                if (beat - totaldamage <= 0)
                     {
                         Kill(def);
                         return "Killed";
@@ -163,7 +163,7 @@ namespace HeroesLib
                     if (!(att.mod.Contains(new Modificators.No_Counter())) && (counter == 0))
                     {
                         counter++;
-                        var a = counterAttack(att, def);
+                        var a = CounterAttack(att, def);
                         if (a == "Was Failed by")
                         {
                             return "Was Failed by";
@@ -176,11 +176,11 @@ namespace HeroesLib
                 }
                 return "Same Army";
             }
-            public string counterAttack(BattleUnitStack att, BattleUnitStack def)
+            public string CounterAttack(BattleUnitStack att, BattleUnitStack def)
             {
                 //атака в половину от стандартной
                 def.bus.Attack /= 2;
-                string a = attack(def, att);
+                string a = Attack(def, att);
                 def.bus.Attack *= 2;
                 if (a == "Killed")
                 {
@@ -189,9 +189,9 @@ namespace HeroesLib
 
                 return " ";
             }
-            public bool endOfTheRound()
+            public bool EndOfTheRound()
             {
-                if (winCondition() != " ")
+                if (WinCondition() != " ")
                 {
                     return true;
 
@@ -220,18 +220,18 @@ namespace HeroesLib
                 else
                     return false;
             }
-            public void wait(BattleUnitStack u)
+            public void Wait(BattleUnitStack u)
             {
 
                 u.bus.Initiative = -u.bus.Initiative;
-                queue();
+                Queue();
             }
-            public void defend(BattleUnitStack u)
+            public void Defend(BattleUnitStack u)
             {
                 u.bus.Defence *= (int)1.3;
                 u.canBeUse = false;
             }
-            public string defeat(BattleUnitStack u)
+            public string Defeat(BattleUnitStack u)
             {
                 string str = " ";
                 if (player[0].army.Contains(u))
@@ -246,7 +246,7 @@ namespace HeroesLib
                 return str;
 
             }
-            public void updateUnits()
+            public void UpdateUnits()
             {
                 foreach (var a in player[0].army)
                 {
@@ -272,7 +272,7 @@ namespace HeroesLib
                 }
             }
 
-            public string winCondition()
+            public string WinCondition()
             {
                 if (player[0].army.Count == 0)
                 {
@@ -293,7 +293,7 @@ namespace HeroesLib
             public void Game()
             {
                 round++;
-                queue();
+                Queue();
 
             }
         }

@@ -27,11 +27,11 @@ namespace Interface
 
     public partial class MainWindow : Window
     {
-        List<Assembly> dll = new List<Assembly>();
+        readonly List<Assembly> dll = new List<Assembly>();
         DirectoryInfo info;
         FileInfo[] files;
-        List<Type[]> types = new List<Type[]>();
-        public struct listinfo
+        readonly List<Type[]> types = new List<Type[]>();
+        public struct Listinfo
         {
             public string fullName;
             public string showingName;
@@ -49,14 +49,14 @@ namespace Interface
         //string ListboxElement = " ";
         ListBox l;
         Dictionary<BattleUnitStack, TextBlock> field = new Dictionary<BattleUnitStack, TextBlock>();
-        Dictionary<listinfo, BattleUnitStack> list = new Dictionary<listinfo, BattleUnitStack>(); // (int)1 or 2 + pos
+        Dictionary<Listinfo, BattleUnitStack> list = new Dictionary<Listinfo, BattleUnitStack>(); // (int)1 or 2 + pos
 
         Dictionary<(int, int), TextBlock> back = new Dictionary<(int, int), TextBlock>();
 
         Battle battle;
         BattleUnitStack[] PickingArmy = new BattleUnitStack[6];
         BattleUnitStack[] PickingArmy2 = new BattleUnitStack[6];
-        private void pick(ComboBox arm)
+        private void Pick(ComboBox arm)
         {
 
             Dictionary<string, TextBlock> textblocksarmy1 = new Dictionary<string, TextBlock>()
@@ -154,16 +154,16 @@ namespace Interface
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            pick(Armyselect);
+            Pick(Armyselect);
 
         }
-        private void finishPicking(object sender, RoutedEventArgs e)
+        private void FinishPicking(object sender, RoutedEventArgs e)
         {
             battle = new Battle(new BattleArmy(PickingArmy), new BattleArmy(PickingArmy2));
             StatusofPicking.Text = StatusofPicking.Text + "\n" + "You finished picking first Army";
             window1.Visibility = Visibility.Hidden;
             windowbattle.Visibility = Visibility.Visible;
-            listAdding();
+            ListAdding();
         }
         private void End(object sender, RoutedEventArgs e)
         {
@@ -171,7 +171,7 @@ namespace Interface
 
         }
 
-        public void colorise(BattleUnitStack u, TextBlock text)
+        public void Colorise(BattleUnitStack u, TextBlock text)
         {
             if (u.canBeUse == true)
             {
@@ -202,14 +202,14 @@ namespace Interface
             }
         }
 
-        private void listAdding()
+        private void ListAdding()
         {
             for (int i = 0; i < battle.player[0].army.Count; i++)
             {
 
                 string str = battle.player[0].army[i].bus.Type + "0" + i.ToString();
                 a.Add(battle.player[0].army[i].bus.Type);
-                listinfo sct = new listinfo { fullName = str, showingName = battle.player[0].army[i].bus.Type, posincoll = a.Count - 1, pos = list.Count, posInArmy = i, army = 0 };
+                Listinfo sct = new Listinfo { fullName = str, showingName = battle.player[0].army[i].bus.Type, posincoll = a.Count - 1, pos = list.Count, posInArmy = i, army = 0 };
                 list.Add(sct, battle.player[0].army[i]);
             }
 
@@ -220,7 +220,7 @@ namespace Interface
             {
                 string str = battle.player[1].army[i].bus.Type + "1" + i.ToString();
                 b.Add(battle.player[1].army[i].bus.Type);
-                listinfo sct = new listinfo { fullName = str, showingName = battle.player[1].army[i].bus.Type, posincoll = b.Count - 1, pos = list.Count, posInArmy = i, army = 1 };
+                Listinfo sct = new Listinfo { fullName = str, showingName = battle.player[1].army[i].bus.Type, posincoll = b.Count - 1, pos = list.Count, posInArmy = i, army = 1 };
                 list.Add(sct, battle.player[1].army[i]);
             }
             ListboxPlayer2.ItemsSource = b;
@@ -228,22 +228,22 @@ namespace Interface
 
         }
 
-        private void endturn(BattleUnitStack unit)
+        private void Endturn(BattleUnitStack unit)
         {
 
-            cleansteps();
-            if (battle.endOfTheRound() == true)
+            Cleansteps();
+            if (battle.EndOfTheRound() == true)
             {
                 Gamelogic();
             }
             if (battle.winner == "")
             {
-                battle.queue();
-                listOfSpells();
-                colorise(unit, field[unit]);
+                battle.Queue();
+                ListOfSpells();
+                Colorise(unit, field[unit]);
 
-                unit = battle.whowillgo();
-                putsteps(unit.bus.Step, field[unit]);
+                unit = battle.Whowillgo();
+                Putsteps(unit.bus.Step, field[unit]);
                 if (unit != null)
                 {
                     field[unit].Foreground = Brushes.Red;
@@ -252,7 +252,7 @@ namespace Interface
             }
 
         }
-        private void dllparse()
+        private void Dllparse()
         {
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
@@ -293,10 +293,10 @@ namespace Interface
             InitializeComponent();
             windowbattle.Visibility = Visibility.Hidden;
             windowbattle.IsEnabled = true;
-            dllparse();
+            Dllparse();
         }
 
-        private void chooseposition(object sender, SelectionChangedEventArgs e)
+        private void Chooseposition(object sender, SelectionChangedEventArgs e)
         {
             var buff = ((sender as ListBox).SelectedItem as string);
 
@@ -309,9 +309,9 @@ namespace Interface
 
         }
         int kol = 0;
-        private void selectposition(object sender, MouseButtonEventArgs e)
+        private void Selectposition(object sender, MouseButtonEventArgs e)
         {
-            listinfo flag = new listinfo();
+            Listinfo flag = new Listinfo();
             string buff = selected;
 
             if ((selected != " ") && (selected != null))
@@ -346,7 +346,7 @@ namespace Interface
                 kol++;
                 BattleUnitStack bat = list[flag];
                 TextBlock tb = (TextBlock)sender;
-                textTip(tb, bat);
+                TextTip(tb, bat);
                 field.Add(bat, tb);
                 tb.Text = buff.Substring(0, 1);
                 list.Remove(flag);
@@ -366,7 +366,7 @@ namespace Interface
             {
                 if (spellsList[nameOfSpells].typeofmagic == "invoke")
                 {
-                    var unit = battle.whowillgo();
+                    var unit = battle.Whowillgo();
                     var finish = (TextBlock)sender;
                     if (!field.ContainsValue(finish))
                     {
@@ -377,16 +377,16 @@ namespace Interface
                             {
                                 field.Add(a, finish);
                                 finish.Text = a.bus.Type.Substring(0, 2);
-                                textTip(finish, a);
+                                TextTip(finish, a);
                             }
 
                         }
                     }
-                    endturn(unit);
+                    Endturn(unit);
                 }
                 else
                 {
-                    var unit = battle.whowillgo();
+                    var unit = battle.Whowillgo();
                     var finish = (TextBlock)sender;
                     if (field.ContainsValue(finish))
                     {
@@ -396,8 +396,8 @@ namespace Interface
                             if (field[a[i]] == finish)
                             {
                                 spellsList[nameOfSpells].Doing(unit, a[i], battle);
-                                textTip(field[a[i]], a[i]);
-                                textTip(field[unit], unit);
+                                TextTip(field[a[i]], a[i]);
+                                TextTip(field[unit], unit);
                                 if (!battle.player[a[i].army].army.Contains(a[i]))
                                 {
                                     battleStatus.Text = "Was Killed";
@@ -415,7 +415,7 @@ namespace Interface
                             }
 
                         }
-                        endturn(unit);
+                        Endturn(unit);
                     }
                 }
 
@@ -423,33 +423,33 @@ namespace Interface
         }
         private void Gamelogic()
         {
-            battle.updateUnits();
-            string win = battle.winCondition(); // winning contition
+            battle.UpdateUnits();
+            string win = battle.WinCondition(); // winning contition
             if (win != " ")
             {
                 battleStatus.FontSize = 30;
                 battleStatus.Text = win + "\n";
-
+                
                 //     Environment.Exit(0);
             }
             else
             {
                 battle.round++;
                 round.Text = battle.round.ToString() + " Round";
-                battle.queue();
-                listOfSpells();
+                battle.Queue();
+                ListOfSpells();
                 foreach (var a in field.Keys)
                 {
-                    colorise(a, field[a]);
+                    Colorise(a, field[a]);
 
                 }
-                TextBlock myKey = field[battle.whowillgo()];
-                putsteps(battle.whowillgo().bus.Step, field[battle.whowillgo()]);
+                TextBlock myKey = field[battle.Whowillgo()];
+                Putsteps(battle.Whowillgo().bus.Step, field[battle.Whowillgo()]);
                 myKey.Foreground = Brushes.Red;
             }
         }
 
-        private void textTip(TextBlock t, BattleUnitStack b)
+        private void TextTip(TextBlock t, BattleUnitStack b)
         {
             ToolTip toolTip = new ToolTip();
             StackPanel toolTipPanel = new StackPanel();
@@ -470,19 +470,19 @@ namespace Interface
             t.ToolTip = toolTip;
 
         }
-        private void textTip(TextBlock start, TextBlock finish, BattleUnitStack b)
+        private void TextTip(TextBlock start, TextBlock finish, BattleUnitStack b)
         {
             finish.ToolTip = start.ToolTip;
             start.ToolTip = null;
 
         }
-        private void textTip(TextBlock del)
+        private void TextTip(TextBlock del)
         {
             del.ToolTip = null;
 
         }
 
-        private int distance(TextBlock a, TextBlock b)
+        private int Distance(TextBlock a, TextBlock b)
         {
             var fir = a.Name.Substring(1);
             var sec = b.Name.Substring(1);
@@ -498,7 +498,7 @@ namespace Interface
             return res;
         }
 
-        private void putsteps(int step, TextBlock u)
+        private void Putsteps(int step, TextBlock u)
         {
             string s = u.Name.Substring(1);
             var sy = s.Substring(0, 1);
@@ -523,8 +523,8 @@ namespace Interface
                             var myTextBlock = (TextBlock)this.FindName(name);
                             if (!field.Values.Contains(myTextBlock))
                             {
-                                myTextBlock.Text = " * ";
-                                myTextBlock.FontSize = 20;
+                                myTextBlock.Text = "\n * ";
+                                myTextBlock.FontSize = 30;
                             }
                         }
                     }
@@ -534,7 +534,7 @@ namespace Interface
 
         }
 
-        private void cleansteps()
+        private void Cleansteps()
         {
             for (int i = 1; i <= 8; i++)
             {
@@ -554,10 +554,10 @@ namespace Interface
             }
 
         }
-        private void move(object sender, MouseButtonEventArgs e)
+        private void Move(object sender, MouseButtonEventArgs e)
         {
 
-            var unit = battle.whowillgo();
+            var unit = battle.Whowillgo();
             TextBlock start = field[unit];
 
             TextBlock finish = (TextBlock)sender;
@@ -569,12 +569,12 @@ namespace Interface
                 {
                     if (field[a[i]] == finish)
                     {
-                        if (unit.bus.Range >= distance(start, finish))
+                        if (unit.bus.Range >= Distance(start, finish))
                         {
                             var beatbef = a[i].bus.qty * a[i].bus.StandardHitpoints + a[i].bus.Hitpoints;
-                            string s = battle.attack(unit, a[i]);
-                            textTip(field[unit], unit);
-                            textTip(field[a[i]], a[i]);
+                            string s = battle.Attack(unit, a[i]);
+                            TextTip(field[unit], unit);
+                            TextTip(field[a[i]], a[i]);
                             if (s == "Same Army")
                             {
 
@@ -584,23 +584,23 @@ namespace Interface
                             else if (s == "Damaged")
                             {
                                 battleStatus.Text = finish.Text + " " + s + " by " + start.Text + "\n";
-                                endturn(unit);
+                                Endturn(unit);
                             }
                             if (s == "Killed")
                             {
                                 field.Remove(a[i]);
-                                textTip(finish);
+                                TextTip(finish);
                                 finish.Text = "";
                                 finish.Foreground = Brushes.Black;
-                                endturn(unit);
+                                Endturn(unit);
                             }
                             if (s == "Was Failed by")
                             {
                                 field.Remove(unit);
-                                textTip(start);
+                                TextTip(start);
                                 start.Text = "";
                                 start.Foreground = Brushes.Black;
-                                endturn(unit);
+                                Endturn(unit);
                             }
                         }
                         else
@@ -613,16 +613,16 @@ namespace Interface
             }
             else 
             {
-                if (unit.bus.Step >= distance(start, finish))
+                if (unit.bus.Step >= Distance(start, finish))
                 {
                     finish.Text = start.Text;
                     field.Remove(unit);
                     field.Add(unit, finish);
                     start.Text = "";
                     start.Foreground = Brushes.Black;
-                    textTip(start, finish, unit);
+                    TextTip(start, finish, unit);
                     unit.canBeUse = false;
-                    endturn(unit);
+                    Endturn(unit);
                 }
                 else
                 {
@@ -630,44 +630,37 @@ namespace Interface
                 }
             }
         }
-        private void RedGuy()
-        {
-            var unit = battle.whowillgo();
-            if (unit != null)
-            {
-                field[unit].Foreground = Brushes.Red;
-            }
-        }
-        private void waitButton(object sender, RoutedEventArgs e)
+   
+        private void WaitButton(object sender, RoutedEventArgs e)
         {
 
-            var unit = battle.whowillgo();
-            battle.wait(unit);
-            listOfSpells();
-            colorise(unit, field[unit]);
+            var unit = battle.Whowillgo();
+            battle.Wait(unit);
+            ListOfSpells();
+            Colorise(unit, field[unit]);
 
-            endturn(unit);
+            Endturn(unit);
         }
 
 
 
-        private void defendButton(object sender, RoutedEventArgs e)
+        private void DefendButton(object sender, RoutedEventArgs e)
         {
-            var unit = battle.whowillgo();
-            battle.defend(unit);
-            listOfSpells();
-            endturn(unit);
+            var unit = battle.Whowillgo();
+            battle.Defend(unit);
+            ListOfSpells();
+            Endturn(unit);
         }
 
-        private void defeatButton(object sender, RoutedEventArgs e)
+        private void DefeatButton(object sender, RoutedEventArgs e)
         {
-            var unit = battle.whowillgo();
-            battle.defeat(unit);
+            var unit = battle.Whowillgo();
+            battle.Defeat(unit);
         }
 
-        private void chooseabil(object sender, SelectionChangedEventArgs e)
+        private void Chooseabil(object sender, SelectionChangedEventArgs e)
         {
-            var unit = battle.whowillgo();
+            var unit = battle.Whowillgo();
             string s = ((sender as ListBox).SelectedItem as string);
 
             if ((s != "Default Spells:") && (s != null))
@@ -682,11 +675,11 @@ namespace Interface
             }
         }
         Dictionary<string, Ispell> spellsList = new Dictionary<string, Ispell>();
-        private void listOfSpells()
+        private void ListOfSpells()
         {
             spellsList.Clear();
             feat.Clear();
-            var unit = battle.whowillgo();
+            var unit = battle.Whowillgo();
             feat.Add("\nDefault Spells (Clickable) :");
             if (unit != null)
             {

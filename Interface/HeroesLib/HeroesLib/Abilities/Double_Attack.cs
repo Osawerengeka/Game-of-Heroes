@@ -20,10 +20,10 @@ namespace HeroesLib.Abilities
         public void Doing(BattleUnitStack UsedUnit, BattleUnitStack OpposeUnit = null, Battle battle = null)
         {
             cooldown = 5;
-            string res = battle.attack(UsedUnit, OpposeUnit);
+            string res = battle.Attack(UsedUnit, OpposeUnit);
             if ((res != "Killed") && (res != "Was Failed by"))
             {
-                res = battle.attack(UsedUnit, OpposeUnit);
+                res = battle.Attack(UsedUnit, OpposeUnit);
             }
         }
     }
