@@ -6,7 +6,7 @@ namespace HeroesLib.Units
 {
     public class Demon : Unit
     {
-        public Demon() : base("DEMON", 166, 27, 25, (36, 66), 11)
+        public Demon() : base("DEMON", 166, 27, 25, (36, 66), 11,2,2)
         {
             mod.Add(new Modificators.Fire_Imm());
             abl.Add(new Abilities.Extra_Damage());

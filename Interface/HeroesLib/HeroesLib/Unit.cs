@@ -6,26 +6,35 @@ using System.Threading.Tasks;
 
 namespace HeroesLib
 {
-        public class Unit
+    public class Unit
+    {
+        public int Range { get; }
+        public int Step { get; }
+
+        public List<Imod> mod = new List<Imod>();
+        public List<Ispell> abl = new List<Ispell>();
+        public (int, int) Damage { get; }
+        public string Type { get; }
+        public int Hitpoints { get; }
+        public int Attack { get; }
+        public int Defence { get; }
+        public int Initiative { get; }
+
+        public Unit(string typ, int hit, int att, int def, (int, int) dam, int Ini, int step, int range)
         {
-            public List<Imod> mod = new List<Imod>();
-            public List<Ispell> abl = new List<Ispell>();
-            public (int, int) Damage { get; }
-            public string Type { get; }
-            public int Hitpoints { get; }
-            public int Attack { get; }
-            public int Defence { get; }
-            public int Initiative { get; }
+            Damage = dam;
+            Type = typ;
+            Hitpoints = hit;
+            Attack = att;
+            Defence = def;
+            Initiative = Ini;
+            Step = step;
+            Range = range;
 
-            public Unit(string typ, int hit, int att, int def, (int, int) dam, int Ini)
-            {
-                Damage = dam;
-                Type = typ;
-                Hitpoints = hit;
-                Attack = att;
-                Defence = def;
-                Initiative = Ini;
-
-            }
         }
     }
+}
+
+
+
+

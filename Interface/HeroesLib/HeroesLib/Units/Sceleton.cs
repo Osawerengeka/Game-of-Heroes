@@ -7,7 +7,7 @@ namespace HeroesLib.Units
     public class Sceleton : Unit
     {
 
-        public Sceleton() : base("SCELETON", 5, 1, 2, (1, 1), 10)
+        public Sceleton() : base("SCELETON", 5, 1, 2, (1, 1), 10,3,1)
         {
             mod.Add(new Modificators.Ice_Imm());
             mod.Add(new Modificators.Fire_Imm());

@@ -8,7 +8,7 @@ namespace NewUnits.Units
 {
     public class Mage : Unit
     {
-        public Mage() : base("Mage", 3, 5, 1, (10, 10), 19)
+        public Mage() : base("MAGE", 3, 5, 1, (10, 10), 19,2,4)
         {
             abl.Add(new InvokeWolf());
 

@@ -24,15 +24,13 @@ using System.IO;
 
 namespace Interface
 {
- 
+
     public partial class MainWindow : Window
     {
         List<Assembly> dll = new List<Assembly>();
-
         DirectoryInfo info;
         FileInfo[] files;
         List<Type[]> types = new List<Type[]>();
-
         public struct listinfo
         {
             public string fullName;
@@ -42,26 +40,19 @@ namespace Interface
             public int posInArmy;
             public int army;
         }
-
-
-
         ObservableCollection<string> a = new ObservableCollection<string>();
         ObservableCollection<string> b = new ObservableCollection<string>();
         ObservableCollection<string> feat = new ObservableCollection<string>();
-
-
-
         bool usingMagic = false;
         string nameOfSpells;
-
-
-
-        string select;
         string selected;
         //string ListboxElement = " ";
         ListBox l;
         Dictionary<BattleUnitStack, TextBlock> field = new Dictionary<BattleUnitStack, TextBlock>();
         Dictionary<listinfo, BattleUnitStack> list = new Dictionary<listinfo, BattleUnitStack>(); // (int)1 or 2 + pos
+
+        Dictionary<(int, int), TextBlock> back = new Dictionary<(int, int), TextBlock>();
+
         Battle battle;
         BattleUnitStack[] PickingArmy = new BattleUnitStack[6];
         BattleUnitStack[] PickingArmy2 = new BattleUnitStack[6];
@@ -126,36 +117,38 @@ namespace Interface
                             textblocksarmy2.TryGetValue(strqt, out textQ);
 
                         }
-                        textS.Text = hero.Substring(0, 1);
-                        textQ.Text = qt.Text;
-
-                        StatusofPicking.Text = StatusofPicking.Text + "\n" + "Units has been created";
-
-                        foreach (var a in types)
+                        if (hero != null)
                         {
-                            for (int i = 0; i < a.Length; i++)
-                            {
+                            textS.Text = hero.Substring(0, 1);
+                            textQ.Text = qt.Text;
 
-                                if (hero == a[i].Name)
+                            StatusofPicking.Text = StatusofPicking.Text + "\n" + "Units has been created";
+
+                            foreach (var a in types)
+                            {
+                                for (int i = 0; i < a.Length; i++)
                                 {
-                                    object obj = Activator.CreateInstance(a[i]);
-                                    if (player.Text == "Player1")
-                                        PickingArmy[spot_ - 1] = new BattleUnitStack(new UnitStack((Unit)obj, qt_));
-                                    else
-                                        PickingArmy2[spot_ - 1] = new BattleUnitStack(new UnitStack((Unit)obj, qt_));
-                                    break;
+
+                                    if (hero == a[i].Name)
+                                    {
+                                        object obj = Activator.CreateInstance(a[i]);
+                                        if (player.Text == "Player1")
+                                            PickingArmy[spot_ - 1] = new BattleUnitStack(new UnitStack((Unit)obj, qt_));
+                                        else
+                                            PickingArmy2[spot_ - 1] = new BattleUnitStack(new UnitStack((Unit)obj, qt_));
+                                        break;
+                                    }
                                 }
                             }
                         }
+                        else
+                            StatusofPicking.Text = StatusofPicking.Text + "\n" + "You have only 6 slots!!!";
                     }
                     else
-                        StatusofPicking.Text = StatusofPicking.Text + "\n" + "You have only 6 slots!!!";
+                        StatusofPicking.Text = StatusofPicking.Text + "\n" + "Something got wrong:\\ \n Try again";
+
                 }
-                else
-                    StatusofPicking.Text = StatusofPicking.Text + "\n" + "Something got wrong:\\ \n Try again";
-
             }
-
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -237,6 +230,8 @@ namespace Interface
 
         private void endturn(BattleUnitStack unit)
         {
+
+            cleansteps();
             if (battle.endOfTheRound() == true)
             {
                 Gamelogic();
@@ -248,11 +243,12 @@ namespace Interface
                 colorise(unit, field[unit]);
 
                 unit = battle.whowillgo();
-
+                putsteps(unit.bus.Step, field[unit]);
                 if (unit != null)
                 {
                     field[unit].Foreground = Brushes.Red;
                 }
+
             }
 
         }
@@ -261,16 +257,9 @@ namespace Interface
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
             var path = System.IO.Path.GetDirectoryName(location);
-           // path.Remove(path.IndexOf(@"interface.exe"),14);
+            // path.Remove(path.IndexOf(@"interface.exe"),14);
             info = new DirectoryInfo(path);
             files = info.GetFiles();
-
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-            bi3.UriSource = new Uri(Directory.GetCurrentDirectory()+"armyspot.bmp", UriKind.Relative);
-            bi3.EndInit();
-            image.Stretch = Stretch.Fill;
-            image.Source = bi3;
 
             foreach (var a in files)
             {
@@ -455,6 +444,7 @@ namespace Interface
 
                 }
                 TextBlock myKey = field[battle.whowillgo()];
+                putsteps(battle.whowillgo().bus.Step, field[battle.whowillgo()]);
                 myKey.Foreground = Brushes.Red;
             }
         }
@@ -491,6 +481,79 @@ namespace Interface
             del.ToolTip = null;
 
         }
+
+        private int distance(TextBlock a, TextBlock b)
+        {
+            var fir = a.Name.Substring(1);
+            var sec = b.Name.Substring(1);
+            int val11 = int.Parse(fir.Substring(0, 1));
+            int val12 = int.Parse(sec.Substring(0, 1));
+            int val21 = int.Parse(fir.Substring(1));
+            int val22 = int.Parse(sec.Substring(1));
+
+            int res = Math.Max(Math.Abs(val12 - val11), Math.Abs(val21 - val22));
+
+
+            // int res =(int) Math.Sqrt((val12 - val11) ^ 2 + (val22 - val21) ^ 2);
+            return res;
+        }
+
+        private void putsteps(int step, TextBlock u)
+        {
+            string s = u.Name.Substring(1);
+            var sy = s.Substring(0, 1);
+            var sx = s.Substring(1);
+
+            int.TryParse(sy, out int y);
+            int.TryParse(sx, out int x);
+
+
+            for (int i = y - step; i <= y + step; i++)
+            {
+                if ((i <= 8) && (i > 0))
+                {
+
+                    for (int j = x - step; j <= x + step; j++)
+                    {
+                        if ((j <= 8) && (j > 0))
+                        {
+
+                            string name = "T" + i.ToString() + j.ToString();
+
+                            var myTextBlock = (TextBlock)this.FindName(name);
+                            if (!field.Values.Contains(myTextBlock))
+                            {
+                                myTextBlock.Text = " * ";
+                                myTextBlock.FontSize = 20;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        private void cleansteps()
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+
+                for (int j = 1; j <= 8; j++)
+                {
+                    string name = "T" + i.ToString() + j.ToString();
+
+                    var myTextBlock = (TextBlock)this.FindName(name);
+                    myTextBlock.FontSize = 60;
+                    if (!field.Values.Contains(myTextBlock))
+                    {
+                        myTextBlock.Text = " ";
+                       
+                    }
+                }
+            }
+
+        }
         private void move(object sender, MouseButtonEventArgs e)
         {
 
@@ -498,6 +561,7 @@ namespace Interface
             TextBlock start = field[unit];
 
             TextBlock finish = (TextBlock)sender;
+
             if (field.ContainsValue(finish))
             {
                 List<BattleUnitStack> a = field.Keys.ToList();
@@ -505,51 +569,66 @@ namespace Interface
                 {
                     if (field[a[i]] == finish)
                     {
-
-                        var beatbef = a[i].bus.qty * a[i].bus.StandardHitpoints + a[i].bus.Hitpoints;
-                        string s = battle.attack(unit, a[i]);
-                        textTip(field[unit], unit);
-                        textTip(field[a[i]], a[i]);
-                        if (s == "Same Army")
+                        if (unit.bus.Range >= distance(start, finish))
                         {
+                            var beatbef = a[i].bus.qty * a[i].bus.StandardHitpoints + a[i].bus.Hitpoints;
+                            string s = battle.attack(unit, a[i]);
+                            textTip(field[unit], unit);
+                            textTip(field[a[i]], a[i]);
+                            if (s == "Same Army")
+                            {
 
-                            battleStatus.Text = "Same Army. Choose another action" + "\n";
+                                battleStatus.Text = "Same Army. Choose another action" + "\n";
+                                return;
+                            }
+                            else if (s == "Damaged")
+                            {
+                                battleStatus.Text = finish.Text + " " + s + " by " + start.Text + "\n";
+                                endturn(unit);
+                            }
+                            if (s == "Killed")
+                            {
+                                field.Remove(a[i]);
+                                textTip(finish);
+                                finish.Text = "";
+                                finish.Foreground = Brushes.Black;
+                                endturn(unit);
+                            }
+                            if (s == "Was Failed by")
+                            {
+                                field.Remove(unit);
+                                textTip(start);
+                                start.Text = "";
+                                start.Foreground = Brushes.Black;
+                                endturn(unit);
+                            }
+                        }
+                        else
+                        {
+                            battleStatus.Text = "Not enough Range skills to attack enemy unit" + "\n";
                             return;
-                        }
-                        else if (s == "Damaged")
-                        {
-                            battleStatus.Text = finish.Text + " " + s + " by " + start.Text + "\n";
-                        }
-                        if (s == "Killed")
-                        {
-                            field.Remove(a[i]);
-                            textTip(finish);
-                            finish.Text = "";
-                            finish.Foreground = Brushes.Black;
-                        }
-                        if (s == "Was Failed by")
-                        {
-                            field.Remove(unit);
-                            textTip(start);
-                            start.Text = "";
-                            start.Foreground = Brushes.Black;
-
                         }
                     }
                 }
             }
-            else
+            else 
             {
-                finish.Text = start.Text;
-                field.Remove(unit);
-                field.Add(unit, finish);
-                start.Text = "";
-                start.Foreground = Brushes.Black;
-                textTip(start, finish, unit);
+                if (unit.bus.Step >= distance(start, finish))
+                {
+                    finish.Text = start.Text;
+                    field.Remove(unit);
+                    field.Add(unit, finish);
+                    start.Text = "";
+                    start.Foreground = Brushes.Black;
+                    textTip(start, finish, unit);
+                    unit.canBeUse = false;
+                    endturn(unit);
+                }
+                else
+                {
+                    battleStatus.Text = "Not enough Step skills to change position as far as you want" + "\n";
+                }
             }
-
-            unit.canBeUse = false;
-            endturn(unit);
         }
         private void RedGuy()
         {
@@ -609,13 +688,16 @@ namespace Interface
             feat.Clear();
             var unit = battle.whowillgo();
             feat.Add("\nDefault Spells (Clickable) :");
-            foreach (var a in unit.abl)
+            if (unit != null)
             {
-                feat.Add(a.Name);
-                spellsList.Add(a.Name, a);
+                foreach (var a in unit.abl)
+                {
+                    feat.Add(a.Name);
+                    spellsList.Add(a.Name, a);
+                }
+                abilities.ItemsSource = feat;
             }
-            abilities.ItemsSource = feat;
         }
     }
-    }
 
+}

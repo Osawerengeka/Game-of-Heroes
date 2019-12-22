@@ -8,7 +8,7 @@ namespace NewUnits.Units
 {
     class Wolf : Unit
     {
-        public Wolf() : base("Wolf", 30, 5, 5, (10, 10), 12)
+        public Wolf() : base("WOLF", 30, 5, 5, (10, 10), 12,4,2)
         {
         }
 
